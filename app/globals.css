@@ -1,26 +1,120 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #333333;
+  --surface: #ffffff;
+  --surface-soft: #f5f3f0;
+  --pastel-rosa: #f5e6e1;
+  --pastel-azul: #e8f4f8;
+  --pastel-verde: #e8f5e8;
+  --pastel-bege: #f5f1e8;
+  --gray-light: #f0f0f0;
+  --gray-med: #666666;
+  --black: #1a1a1a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+}
+
+.bg-texture {
+  background-image: radial-gradient(circle at 15% 20%, rgba(245, 230, 225, 0.45), transparent 35%),
+    radial-gradient(circle at 88% 30%, rgba(232, 244, 248, 0.45), transparent 38%),
+    radial-gradient(circle at 75% 86%, rgba(232, 245, 232, 0.35), transparent 42%);
+}
+
+.minimal-link {
+  position: relative;
+}
+
+.minimal-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 0;
+  height: 1px;
+  background: var(--black);
+  transition: width 0.3s ease;
+}
+
+.minimal-link:hover::after,
+.minimal-link:focus-visible::after,
+.minimal-link.active::after {
+  width: 100%;
+}
+
+.page-shell {
+  border: 1px solid rgba(240, 240, 240, 0.95);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1.25rem;
+}
+
+.section-card {
+  border: 1px solid rgba(240, 240, 240, 0.95);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.section-eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--gray-med);
+}
+
+.section-title {
+  font-family: var(--font-playfair), serif;
+  color: var(--black);
+  line-height: 1.12;
+}
+
+.section-copy {
+  color: var(--gray-med);
+  line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    padding: 1.75rem;
+  }
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid rgba(102, 102, 102, 0.45);
+  outline-offset: 2px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
