@@ -42,7 +42,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
       <div>
         <label htmlFor="nome" className="text-sm font-medium text-gray-dark">
           Nome
@@ -90,7 +90,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className="inline-flex min-h-11 items-center rounded-md border border-black px-5 py-2 text-sm font-medium text-black transition duration-300 hover:scale-[1.02] hover:bg-pastel-bege focus-visible:ring-2 focus-visible:ring-gray-med/40 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-md border border-black px-5 py-2 text-sm font-medium text-black transition duration-300 hover:scale-[1.02] hover:bg-pastel-bege focus-visible:ring-2 focus-visible:ring-gray-med/40 sm:w-auto disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "Enviando..." : "Enviar"}
       </button>

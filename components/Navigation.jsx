@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const items = [
   { href: "/", label: "Home" },
@@ -17,15 +17,26 @@ export default function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed inset-x-0 top-0 z-50 border-b border-gray-light/70 bg-white/95 backdrop-blur"
+      className="fixed inset-x-0 top-0 z-50 border-b border-gray-light/55 bg-[#fdfaf6]/85 backdrop-blur-xl"
     >
-      <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-        <Link href="/" className="font-serif text-lg text-black">
+      <nav className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-8 lg:px-12">
+        <Link href="/" className="font-serif text-xl leading-none text-black sm:text-2xl">
           Ana Costa
         </Link>
 
@@ -33,7 +44,7 @@ export default function Navigation() {
         <button
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
-          className="relative flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-md md:hidden"
+          className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-md md:hidden"
           onClick={() => setOpen((prev) => !prev)}
           type="button"
         >
@@ -81,7 +92,7 @@ export default function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-x-4 top-[calc(100%+0.5rem)] z-50 overflow-hidden rounded-xl border border-gray-light bg-white/95 shadow-[0_8px_32px_rgba(0,0,0,0.07)] backdrop-blur md:hidden"
+            className="absolute inset-x-3 top-[calc(100%+0.4rem)] z-50 overflow-hidden rounded-2xl border border-gray-light/70 bg-[#fdfaf6]/95 shadow-[0_18px_42px_rgba(34,28,24,0.13)] backdrop-blur md:hidden"
           >
             <ul className="flex flex-col divide-y divide-gray-light/60">
               {items.map((item, i) => {
@@ -96,10 +107,10 @@ export default function Navigation() {
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className={`flex items-center justify-between px-5 py-3.5 text-sm transition-colors ${
+                      className={`flex items-center justify-between px-5 py-4 text-base transition-colors ${
                         active
-                          ? "bg-pastel-rosa/50 font-medium text-black"
-                          : "text-gray-dark hover:bg-surface-soft"
+                          ? "bg-pastel-rosa/55 font-medium text-black"
+                          : "text-gray-dark hover:bg-pastel-bege/45"
                       }`}
                     >
                       <span>{item.label}</span>

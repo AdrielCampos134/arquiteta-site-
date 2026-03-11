@@ -2,17 +2,17 @@
 @config "../tailwind.config.js";
 
 :root {
-  --background: #fafafa;
-  --foreground: #333333;
-  --surface: #ffffff;
-  --surface-soft: #f5f3f0;
-  --pastel-rosa: #f5e6e1;
-  --pastel-azul: #e8f4f8;
-  --pastel-verde: #e8f5e8;
-  --pastel-bege: #f5f1e8;
-  --gray-light: #f0f0f0;
-  --gray-med: #666666;
-  --black: #1a1a1a;
+  --background: #f4f0ea;
+  --foreground: #2f2925;
+  --surface: #fdfaf6;
+  --surface-soft: #f1e7da;
+  --pastel-rosa: #eec6a7;
+  --pastel-azul: #d7e9ea;
+  --pastel-verde: #d7e2d1;
+  --pastel-bege: #efe0cf;
+  --gray-light: #d8cdc1;
+  --gray-med: #6f6359;
+  --black: #191512;
 }
 
 @theme inline {
@@ -23,17 +23,30 @@
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(circle at 15% 15%, rgba(238, 198, 167, 0.28), transparent 45%),
+    radial-gradient(circle at 85% 28%, rgba(215, 233, 234, 0.36), transparent 40%),
+    radial-gradient(circle at 78% 88%, rgba(215, 226, 209, 0.42), transparent 50%), var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   min-height: 100vh;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 .bg-texture {
-  background-image: radial-gradient(circle at 15% 20%, rgba(245, 230, 225, 0.45), transparent 35%),
-    radial-gradient(circle at 88% 30%, rgba(232, 244, 248, 0.45), transparent 38%),
-    radial-gradient(circle at 75% 86%, rgba(232, 245, 232, 0.35), transparent 42%);
+  background-image: linear-gradient(160deg, rgba(253, 250, 246, 0.88), rgba(244, 240, 234, 0.78)),
+    repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.22) 1px, transparent 1px, transparent 20px);
+}
+
+.bg-texture::before {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 10% 70%, rgba(238, 198, 167, 0.18), transparent 42%),
+    radial-gradient(circle at 88% 8%, rgba(215, 233, 234, 0.26), transparent 38%);
+  animation: drift 18s ease-in-out infinite alternate;
 }
 
 .minimal-link {
@@ -58,16 +71,19 @@ body {
 }
 
 .page-shell {
-  border: 1px solid rgba(240, 240, 240, 0.95);
-  border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 1.25rem;
+  border: 1px solid rgba(216, 205, 193, 0.6);
+  border-radius: 1.3rem;
+  background: linear-gradient(170deg, rgba(253, 250, 246, 0.88), rgba(255, 255, 255, 0.76));
+  box-shadow: 0 24px 60px rgba(53, 44, 35, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 1.35rem;
 }
 
 .section-card {
-  border: 1px solid rgba(240, 240, 240, 0.95);
-  border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(216, 205, 193, 0.65);
+  border-radius: 1.1rem;
+  background: linear-gradient(160deg, rgba(253, 250, 246, 0.93), rgba(255, 255, 255, 0.86));
+  box-shadow: 0 16px 42px rgba(42, 34, 27, 0.07);
 }
 
 .section-eyebrow {
@@ -80,7 +96,7 @@ body {
 .section-title {
   font-family: var(--font-playfair), serif;
   color: var(--black);
-  line-height: 1.12;
+  line-height: 1.06;
 }
 
 .section-copy {
@@ -90,7 +106,22 @@ body {
 
 @media (min-width: 640px) {
   .page-shell {
-    padding: 1.75rem;
+    padding: 1.95rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .page-shell {
+    border-radius: 1rem;
+    padding: 1.1rem;
+  }
+
+  .section-card {
+    border-radius: 0.95rem;
+  }
+
+  .bg-texture {
+    background-image: linear-gradient(160deg, rgba(253, 250, 246, 0.92), rgba(244, 240, 234, 0.86));
   }
 }
 
@@ -117,4 +148,30 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2%, -1%, 0) scale(1.04);
+  }
+}
+
+.glass-border {
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.soft-float {
+  animation: floatUp 5.8s ease-in-out infinite alternate;
 }

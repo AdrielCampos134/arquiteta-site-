@@ -1,23 +1,30 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import FallbackImage from "@/components/ui/FallbackImage";
 
 export default function About({ about }) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <section className="page-shell grid gap-8 lg:grid-cols-[220px_1fr] lg:items-start">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="mx-auto w-44 overflow-hidden rounded-full border border-gray-light"
+          className="mx-auto w-44 overflow-hidden rounded-[2.2rem] border border-gray-light"
         >
-          <Image src="/images/projetos/projeto-3.svg" alt="Ana Costa" width={512} height={512} className="h-auto w-full grayscale" />
+          <FallbackImage
+            src="/images/arquitetura/projeto-3.jpg"
+            fallbackSrc="/images/projetos/projeto-4.svg"
+            alt="Ana Costa"
+            width={512}
+            height={512}
+            className="h-52 w-full object-cover"
+          />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-          <h1 className="section-title text-4xl">{about.nome}</h1>
+          <h1 className="section-title text-3xl sm:text-4xl">{about.nome}</h1>
           <p className="section-eyebrow mt-2">{about.titulo}</p>
           <div className="section-copy mt-6 space-y-4">
             {about.bio.map((paragraph) => (
@@ -33,7 +40,7 @@ export default function About({ about }) {
           <ul className="section-copy mt-5 space-y-3">
             {about.skills.map((skill) => (
               <li key={skill} className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-pastel-azul" />
+                <span className="h-2 w-2 rounded-full bg-pastel-rosa" />
                 {skill}
               </li>
             ))}
@@ -42,7 +49,7 @@ export default function About({ about }) {
 
         <div className="section-card p-5 sm:p-6">
           <h2 className="section-title text-2xl">Timeline</h2>
-          <div className="relative mt-5 space-y-5 border-l border-gray-light pl-6">
+          <div className="relative mt-5 space-y-5 border-l border-gray-light pl-5 sm:pl-6">
             {about.timeline.map((item, index) => (
               <motion.div
                 key={item.evento}
